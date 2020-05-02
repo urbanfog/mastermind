@@ -61,6 +61,7 @@ class Mastermind
     c = 'C'.bg_cyan
     gr = 'G'.bg_gray
     
+    r1 = Array.new(3)
     
     puts "
     MASTERMIND
@@ -79,6 +80,7 @@ class Mastermind
         __ __ __ __ __ __ __ __ __ __ __ __
 
     "
+    puts r1
   end
 end
 game = Mastermind.new()
