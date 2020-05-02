@@ -42,46 +42,82 @@ end
 class Mastermind
   COLORS = %i[black red green yellow blue magenta cyan gray]
   
+  def initialize
+    @secret_code = Array.new(4, "?")
+    @player_choices = Hash.new(1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ",
+                               7 => " ", 8 => " ", 9 => " ", 10 => " ", 11 => " ", 12 => " ")
+    @round = 1
+  end
+
+  def play_game
+    puts "Welcome to.... MASTERMIND."
+    puts "Try your luck guessing the CPU's impossible combination."
+    puts "Generating impossible combination....."
+    puts "Done"
+    puts "------------------------------------------------------------"
+    
+    computer_select_code
+    while @round <= 12
+      show_board
+      player_choice
+      system('clear')
+    end
+
+  end
+
   def computer_select_code
     code = []
     4.times do
       random_number = Random.rand(8)# rand returns less than max
       code << COLORS[random_number] 
     end
-    code
+    @secret_code = code
   end
 
   def show_board
-    bl = 'B'.bg_black
+    b = 'B'.bg_black
     r = 'R'.bg_red
     g = 'G'.bg_green
     y = 'Y'.bg_yellow
-    blue = 'B'.bg_blue
+    d = 'D'.bg_blue
     m = 'M'.bg_magenta
     c = 'C'.bg_cyan
-    gr = 'G'.bg_gray
-    
-    r1 = Array.new(3)
+    w = 'W'.bg_gray
     
     puts "
     MASTERMIND
 
-        12 11 10  9  8  7  6  5  4  3  2  1
-    +--+-----------------------------------+-----+
-    |  |  |  |  |  |  |  |  |  |  |  |  |  | #{bl} | #{blue} |
-    +--+-----------------------------------+-----+
-    |  |  |  |  |  |  |  |  |  |  |  |  |  | #{r} | #{m} |
-    +--+-----------------------------------+-----+
-    |  |  |  |  |  |  |  |  |  |  |  |  |  | #{g} | #{gr} |
-    +--+-----------------------------------+-----+
-    |  |  |  |  |  |  |  |  |  |  |  |  |  | #{y} | #{c} |
-    +--+-----------------------------------+-----+
-        __ __ __ __ __ __ __ __ __ __ __ __
-        __ __ __ __ __ __ __ __ __ __ __ __
+         12  11  10   9   8   7   6   5   4   3   2   1
+    +---+-----------------------------------------------+-------+
+    | ? | #{@player_choices[12][0]} | #{@player_choices[11][0]} | #{@player_choices[10][0]} | #{@player_choices[9][0]} | #{@player_choices[8][0]} | #{@player_choices[7][0]} | #{@player_choices[6][0]} | #{@player_choices[5][0]} | #{@player_choices[4][0]} | #{@player_choices[3][0]} | #{@player_choices[2][0]} | #{@player_choices[1][0]} | #{b} | #{d} |
+    +---+-----------------------------------------------+-------+
+    | ? | #{@player_choices[12][1]} | #{@player_choices[11][1]} | #{@player_choices[10][1]} | #{@player_choices[9][1]} | #{@player_choices[8][1]} | #{@player_choices[7][1]} | #{@player_choices[6][1]} | #{@player_choices[5][1]} | #{@player_choices[4][1]} | #{@player_choices[3][1]} | #{@player_choices[2][1]} | #{@player_choices[1][1]} | #{r} | #{m} |
+    +---+-----------------------------------------------+-------+
+    | ? | #{@player_choices[12][2]} | #{@player_choices[11][2]} | #{@player_choices[10][2]} | #{@player_choices[9][2]} | #{@player_choices[8][2]} | #{@player_choices[7][2]} | #{@player_choices[6][2]} | #{@player_choices[5][2]} | #{@player_choices[4][2]} | #{@player_choices[3][2]} | #{@player_choices[2][2]} | #{@player_choices[1][2]} | #{g} | #{w} |
+    +---+-----------------------------------------------+-------+
+    | ? | #{@player_choices[12][3]} | #{@player_choices[11][3]} | #{@player_choices[10][3]} | #{@player_choices[9][3]} | #{@player_choices[8][3]} | #{@player_choices[7][3]} | #{@player_choices[6][3]} | #{@player_choices[5][3]} | #{@player_choices[4][3]} | #{@player_choices[3][3]} | #{@player_choices[2][3]} | #{@player_choices[1][3]} | #{y} | #{c} |
+    +---+-----------------------------------------------+-------+
+         ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+         ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
 
     "
-    puts r1
+  end
+
+  def player_choice
+    choice = []
+    puts "What do you think the code is?"
+    puts "Top spot?"
+    choice << gets.chomp
+    puts "Middle-top spot?"
+    choice << gets.chomp
+    puts "Middle-bottom spot?"
+    choice << gets.chomp
+    puts "Bottom spot?"
+    choice << gets.chomp
+    
+    @player_choices[@round] = choice
+    @round += 1
   end
 end
 game = Mastermind.new()
-game.show_board
+game.play_game
