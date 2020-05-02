@@ -32,7 +32,7 @@ class String
   def bg_black;       "\e[40m#{self}\e[0m" end
   def bg_red;         "\e[41m#{self}\e[0m" end
   def bg_green;       "\e[42m#{self}\e[0m" end
-  def bg_brown;       "\e[43m#{self}\e[0m" end
+  def bg_yellow;       "\e[43m#{self}\e[0m" end
   def bg_blue;        "\e[44m#{self}\e[0m" end
   def bg_magenta;     "\e[45m#{self}\e[0m" end
   def bg_cyan;        "\e[46m#{self}\e[0m" end
@@ -40,10 +40,45 @@ class String
 end
 
 class Mastermind
-  COLORS = %i[red green blue yellow brown orange black white]
+  COLORS = %i[black red green yellow blue magenta cyan gray]
+  
+  def computer_select_code
+    code = []
+    4.times do
+      random_number = Random.rand(8)# rand returns less than max
+      code << COLORS[random_number] 
+    end
+    code
+  end
+
   def show_board
-    puts "HELLO".bg_red
-    puts COLORS
+    bl = 'B'.bg_black
+    r = 'R'.bg_red
+    g = 'G'.bg_green
+    y = 'Y'.bg_yellow
+    blue = 'B'.bg_blue
+    m = 'M'.bg_magenta
+    c = 'C'.bg_cyan
+    gr = 'G'.bg_gray
+    
+    
+    puts "
+    MASTERMIND
+
+        12 11 10  9  8  7  6  5  4  3  2  1
+    +--+-----------------------------------+-----+
+    |  |  |  |  |  |  |  |  |  |  |  |  |  | #{bl} | #{blue} |
+    +--+-----------------------------------+-----+
+    |  |  |  |  |  |  |  |  |  |  |  |  |  | #{r} | #{m} |
+    +--+-----------------------------------+-----+
+    |  |  |  |  |  |  |  |  |  |  |  |  |  | #{g} | #{gr} |
+    +--+-----------------------------------+-----+
+    |  |  |  |  |  |  |  |  |  |  |  |  |  | #{y} | #{c} |
+    +--+-----------------------------------+-----+
+        __ __ __ __ __ __ __ __ __ __ __ __
+        __ __ __ __ __ __ __ __ __ __ __ __
+
+    "
   end
 end
 game = Mastermind.new()
