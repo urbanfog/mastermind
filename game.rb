@@ -44,7 +44,7 @@ class Mastermind
   
   def initialize
     @secret_code = Array.new(4, "?")
-    @player_choices = Hash.new(1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ",
+    @player_choices = Hash.new(1 => [1, 2, 3, 4], 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ",
                                7 => " ", 8 => " ", 9 => " ", 10 => " ", 11 => " ", 12 => " ")
     @round = 1
   end
@@ -60,7 +60,6 @@ class Mastermind
     while @round <= 12
       show_board
       player_choice
-      system('clear')
     end
 
   end
@@ -89,7 +88,7 @@ class Mastermind
 
          12  11  10   9   8   7   6   5   4   3   2   1
     +---+-----------------------------------------------+-------+
-    | ? | #{@player_choices[12][0]} | #{@player_choices[11][0]} | #{@player_choices[10][0]} | #{@player_choices[9][0]} | #{@player_choices[8][0]} | #{@player_choices[7][0]} | #{@player_choices[6][0]} | #{@player_choices[5][0]} | #{@player_choices[4][0]} | #{@player_choices[3][0]} | #{@player_choices[2][0]} | #{@player_choices[1][0]} | #{b} | #{d} |
+    | ? | #{@player_choices[12][0]} | #{@player_choices[11][0]} | #{@player_choices[10][0]} | #{@player_choices[9][0]} | #{@player_choices[8][0]} | #{@player_choices[7][0]} | #{@player_choices[6][0]} | #{@player_choices[5][0]} | #{@player_choices[4][0]} | #{@player_choices[3][0]} | #{@player_choices[2][0]} | #{@player_choices['test'][0]} | #{b} | #{d} |
     +---+-----------------------------------------------+-------+
     | ? | #{@player_choices[12][1]} | #{@player_choices[11][1]} | #{@player_choices[10][1]} | #{@player_choices[9][1]} | #{@player_choices[8][1]} | #{@player_choices[7][1]} | #{@player_choices[6][1]} | #{@player_choices[5][1]} | #{@player_choices[4][1]} | #{@player_choices[3][1]} | #{@player_choices[2][1]} | #{@player_choices[1][1]} | #{r} | #{m} |
     +---+-----------------------------------------------+-------+
@@ -101,6 +100,8 @@ class Mastermind
          ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
 
     "
+    puts @player_choices['1']
+    puts @player_choices[12][1].to_s.length
   end
 
   def player_choice
